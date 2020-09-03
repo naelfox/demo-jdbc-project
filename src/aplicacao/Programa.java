@@ -1,20 +1,21 @@
 package aplicacao;
 
-import java.util.Date;
 
-import modelo.negocio.entidades.Departamento;
+
+import modelo.negocio.dao.DaoFabrica;
+import modelo.negocio.dao.VendedorDAO;
+
 import modelo.negocio.entidades.Vendedor;
 
 public class Programa {
 
 	public static void main(String[] args) {
-	
 		
-		
-		Departamento obj = new Departamento(1, "livros");
-		System.out.println(obj);
-		Vendedor vendedor = new Vendedor(21, "bob", "bob@gmail.com", new Date(), 3000.0, obj);
+		VendedorDAO vendedorDao = DaoFabrica.criarVendedorDao();
+		Vendedor vendedor = vendedorDao.acharPorId(3);
 		System.out.println(vendedor);
+		
+		
 		
 	}
 
