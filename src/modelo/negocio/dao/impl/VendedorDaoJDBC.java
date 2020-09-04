@@ -51,15 +51,8 @@ public class VendedorDaoJDBC implements VendedorDAO{
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if(rs.next()) {
-				Departamento dep = new Departamento();
-				dep.setId(rs.getInt("DepartmentId"));
-				dep.setName(rs.getString("DepName"));
-				Vendedor obj = new Vendedor();
-				obj.setId(rs.getInt("Id"));
-				obj.setNome(rs.getString("Email"));
-				obj.setSalario(rs.getDouble("BaseSalary"));
-				obj.setDataAniversario(rs.getDate("BirthDate"));
-				obj.setDepartament(dep);
+				Departamento dep = instantianteDepartment(rs);
+				Vendedor obj = instantiateVendedor(rs, dep);
 				return obj;
 			}
 			return null;
@@ -73,9 +66,26 @@ public class VendedorDaoJDBC implements VendedorDAO{
 		}
 	}
 
+	private Vendedor instantiateVendedor(ResultSet rs, Departamento dep) throws SQLException {
+		Vendedor obj = new Vendedor();
+		obj.setId(rs.getInt("Id"));
+		obj.setNome(rs.getString("Email"));
+		obj.setSalario(rs.getDouble("BaseSalary"));
+		obj.setDataAniversario(rs.getDate("BirthDate"));
+		obj.setDepartament(dep);
+		return obj;
+	}
+
+	private Departamento instantianteDepartment(ResultSet rs) throws SQLException {
+		Departamento dep = new Departamento();
+		dep.setId(rs.getInt("DepartmentId"));
+		dep.setName(rs.getString("DepName"));
+		return null;
+	}
+
 	@Override
 	public List<VendedorDAO> acharTodos() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
